@@ -51,6 +51,8 @@ jobs:
           name: test
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: SCP transfer
         run: scp *.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/test
       - name: Execute remote commands
