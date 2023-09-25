@@ -28,33 +28,37 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
       #run : ./gradlew clean build
+
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: test
-        path: build/libs/*.jar
+        name: testServer
+        path: build/libs/team14project-0.0.1-SNAPSHOT.jar
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
     - name: Download artifact
       uses: actions/download-artifact@v2
       with:
-        name: test
+        name: testServer
         path: build/libs/
 
     - name: Deploy to EC2
       run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
-        chmod 600 key.pem
-        scp -i key.pem -o StrictHostKeyChecking=no build/libs/team14project-0.0.1-SNAPSHOT.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/ubuntu/${{ secrets.SSH_USER }}/test.jar
-        ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "pgrep java | xargs kill -9; nohup java -jar /home/ubuntu/${{ secrets.SSH_USER }}/test.jar > app.log 2>&1 &"
-        rm -f key.pem
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > my_key.pem
+        chmod 600 my_key.pem
+        scp -i my_key.pem -o StrictHostKeyChecking=no build/libs/team14project-0.0.1-SNAPSHOT.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SSH_USER }}/testServer.jar
+        ssh -i my_key.pem -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "pgrep java | xargs kill -9; nohup java -jar /home/${{ secrets.SSH_USER }}/testServer.jar > app.log 2>&1 &"
+        rm -f my_key.pem
