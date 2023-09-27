@@ -1,11 +1,21 @@
-* {
-    font-family: 'Georgia', serif;
-}
-
 body {
     margin: 0px;
 }
 
+.spacing-left {
+    padding-left: 20px;
+}
+
+.spacing-bottom {
+    padding-bottom: 20px;
+}
+
+.textbox {
+    background-color: lightgray;
+    border-radius: 5px;
+    color: black;
+    padding: 7px;
+}
 
 #search-result-box {
     margin-top: 15px;
@@ -531,12 +541,6 @@ input#query::placeholder {
     padding: 15px;
 }
 
-button {
-    color: white;
-    /*border-radius: 4px;*/
-    /*border-radius: none;*/
-}
-
 .popup-container {
     display: none;
     position: fixed;
@@ -932,22 +936,6 @@ button {
     color: #ffffff;
 }
 
-#login-text {
-    position:absolute;
-    top:48px;
-    right:50px;
-    font-size: 18px;
-    font-family: SpoqaHanSansNeo;
-    font-size: 18px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: 0.36px;
-    text-align: center;
-    color: #ffffff;
-}
-
 @media ( max-width: 768px ) {
     body {
         margin: 0px;
@@ -1050,11 +1038,11 @@ button {
         padding: 15px;
     }
 
-    button {
-        color: white;
-        border-radius: 4px;
-        /*border-radius: none;*/
-    }
+    /*button {*/
+    /*    color: white;*/
+    /*    border-radius: 4px;*/
+    /*    !*border-radius: none;*!*/
+    /*}*/
 
     .popup-container {
         display: none;
@@ -1234,4 +1222,51 @@ input[type=submit] {
     padding: 1.75rem 1.25rem;
     border: 1px solid transparent;
     border-radius: .25rem;
+}
+
+/* 상점 상세페이지 탭 관련 */
+.tab-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tab-buttons {
+    display: flex;
+}
+
+.tab-button {
+    flex: 1;
+    background-color: #f2f2f2;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+/* 평점 별 관련 */
+.rating-stars {
+    display: flex;
+    justify-content: center;
+}
+
+.star {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star.selected {
+    color: #ffcc00;
+}
+
+/* 주문 현황 버튼 관련 */
+.button {
+    width: 100%;
 }
